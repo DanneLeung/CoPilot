@@ -50,7 +50,7 @@ module.exports = {
       store.commit('TOGGLE_LOADING')
 
       //  Login
-      this.$parent.callAPI('POST', '/login', { username: this.username, password: this.password }).then(function (response) {
+      this.$parent.callAPI('POST', '/auth/login', { username: this.username, password: this.password }).then(function (response) {
         store.commit('TOGGLE_LOADING')
 
         if (response.data) {

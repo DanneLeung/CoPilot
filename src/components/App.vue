@@ -13,14 +13,14 @@
         section: 'Head',
         version: '0.10.0',
         callingAPI: false,
-        serverURI: 'http://10.110.1.10:8080',
+        serverURI: 'http://localhost:4040',
         caller: this.$http
       }
     },
     methods: {
       callAPI: function (method, url, data) {
         this.callingAPI = true
-        url = url || this.serverURI // if no url is passed then inheret local server URI
+        url = this.serverURI + url // if no url is passed then inheret local server URI
         return this.caller({
           url: url,
           method: method,
