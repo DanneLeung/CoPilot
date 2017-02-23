@@ -1,9 +1,13 @@
-import LoginView from '../components/Login.vue'
-
+import NotFoundView from './404.vue'
+import HomeView from './home'
+import DashView from './dash'
 // Routes
-const index = {
-  path: '/login',
-  component: LoginView
-}
-
-export default index
+export default [
+  HomeView,
+  DashView,
+  {
+    // not found handler
+    path: '*',
+    component: NotFoundView
+  }
+]
