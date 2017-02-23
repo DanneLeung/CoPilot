@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const state = {
   callingAPI: false,
   searching: '',
-  serverURI: 'http://10.110.1.136:8080',
+  serverURI: 'http://localhost:4040/api',
   user: null,
   token: null,
   userInfo: {

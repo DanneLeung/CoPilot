@@ -50,11 +50,11 @@ module.exports = {
       store.commit('TOGGLE_LOADING')
 
       //  Login
-      this.$parent.callAPI('POST', '/auth/login', { username: this.username, password: this.password }).then(function (response) {
+      this.$parent.callAPI('POST', this.$parent.serverURI + '/auth/login', { username: this.username, password: this.password }).then(function (response) {
         store.commit('TOGGLE_LOADING')
 
         if (response.data) {
-          var data = response.data
+          var data = response.body
 
           if (data.error) {
             if (data.error.name) { //  Object from LDAP at this point
@@ -78,7 +78,7 @@ module.exports = {
                 window.localStorage.setItem('token', token)
               }
 
-              this.$router.push(data.redirect)
+              this.$router.push(data.redirect ? data.redirect : '/')
             }
           }
         } else {

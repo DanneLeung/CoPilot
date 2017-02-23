@@ -116,7 +116,7 @@
                 <!-- The user image in the navbar-->
                 <img v-bind:src=demo.avatar class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">{{ demo.displayName }}</span>
+                <span class="hidden-xs">{{ state.user.username }}</span>
               </a>
             </li>
           </ul>
@@ -132,10 +132,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
           <div class="pull-left image">
-
+            <img src="/static/img/user.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <div><p class="white">{{ demo.displayName }}</p></div>
+            <div><p class="white">{{ state.user.username }}</p></div>
             <a href="javascript:;"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
