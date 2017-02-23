@@ -116,6 +116,6 @@ export default {
 
 <style>
 .datetime-picker input {
-  height: 4em !important;
+  /*height: 2em !important;*/
 }
 </style>

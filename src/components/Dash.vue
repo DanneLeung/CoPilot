@@ -7,7 +7,7 @@
         <!-- logo for regular state and mobile devices -->
         <div class="container logo-lg">
           <div class="pull-left image"><img src="/static/img/logo_sm.png" alt="Logo" class="img-responsive"></div>
-          <div class="pull-left info">CoPilot</div>
+          <div class="pull-left info">{{ demo.app.name }}</div>
         </div>
       </a>
 
@@ -31,7 +31,8 @@
                 <li v-if="state.userInfo.messages.length > 0">
                   <!-- inner menu: contains the messages -->
                   <ul class="menu">
-                    <li><!-- start message -->
+                    <li>
+                      <!-- start message -->
                       <a href="javascript:;">
                         <!-- Message title and timestamp -->
                         <h4>
@@ -62,7 +63,8 @@
                 <li v-if="state.userInfo.notifications.length > 0">
                   <!-- Inner Menu: contains the notifications -->
                   <ul class="menu">
-                    <li><!-- start notification -->
+                    <li>
+                      <!-- start notification -->
                       <a href="javascript:;">
                         <i class="fa fa-users text-aqua"></i> 5 new members joined today
                       </a>
@@ -81,11 +83,12 @@
                 <span class="label label-danger">{{ state.userInfo.tasks | count }} </span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">You have {{ state.userInfo.tasks | count }}  task(s)</li>
+                <li class="header">You have {{ state.userInfo.tasks | count }} task(s)</li>
                 <li v-if="state.userInfo.tasks.length > 0">
                   <!-- Inner menu: contains the tasks -->
                   <ul class="menu">
-                    <li><!-- Task item -->
+                    <li>
+                      <!-- Task item -->
                       <a href="javascript:;">
                         <!-- Task title and progress text -->
                         <h3>
@@ -116,7 +119,7 @@
                 <!-- The user image in the navbar-->
                 <img v-bind:src=demo.avatar class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">{{ state.user.username }}</span>
+                <span class="hidden-xs">{{ state.user ? state.user.username : 'not logged in' }}</span>
               </a>
             </li>
           </ul>
@@ -130,21 +133,24 @@
       <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
+        <div class="user-panel" v-if="state.user">
           <div class="pull-left image">
             <img src="/static/img/user.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <div><p class="white">{{ state.user.username }}</p></div>
-            <a href="javascript:;"><i class="fa fa-circle text-success"></i> Online</a>
+            <div>
+              <p class="white">{{ state.user ? state.user.username : 'not logged in' }}</p>
+            </div>
+            <a href="javascript:;" @click='logout'><i class="fa fa-circle text-success"></i> Logout</a>
           </div>
         </div>
 
         <!-- search form (Optional) -->
         <form v-on:submit.prevent class="sidebar-form">
           <div class="input-group">
-            <input type="text" name="search" id="search" class="search form-control" data-toggle="hideseek" placeholder="Search Menus" data-list=".sidebar-menu">
-                <span class="input-group-btn">
+            <input type="text" name="search" id="search" class="search form-control" data-toggle="hideseek" placeholder="Search Menus"
+              data-list=".sidebar-menu">
+            <span class="input-group-btn">
                   <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                   </button>
                 </span>
@@ -155,21 +161,39 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
           <li class="header">TOOLS</li>
-          <li class="active pageLink" v-on:click="toggleMenu"><router-link to="/"><i class="fa fa-desktop"></i><span class="page">Dashboard</span></router-link></li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/tables"><i class="fa fa-table"></i><span class="page">Tables</span></router-link></li>
+          <li class="active pageLink" v-on:click="toggleMenu">
+            <router-link to="/"><i class="fa fa-desktop"></i><span class="page">Dashboard</span></router-link>
+          </li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/tables"><i class="fa fa-table"></i><span class="page">Tables</span></router-link>
+          </li>
 
           <li class="header">ME</li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/tasks"><i class="fa fa-tasks"></i><span class="page">Tasks</span></router-link></li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/setting"><i class="fa fa-cog"></i><span class="page">Settings</span></router-link></li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/tasks"><i class="fa fa-tasks"></i><span class="page">Tasks</span></router-link>
+          </li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/setting"><i class="fa fa-cog"></i><span class="page">Settings</span></router-link>
+          </li>
 
           <li class="header">LOGS</li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/access"><i class="fa fa-book"></i><span class="page">Access</span></router-link></li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/server"><i class="fa fa-hdd-o"></i><span class="page">Server</span></router-link></li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/repos"><i class="fa fa-heart"></i><span class="page">Repos</span><small class="label pull-right bg-green">AJAX</small></router-link></li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/access"><i class="fa fa-book"></i><span class="page">Access</span></router-link>
+          </li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/server"><i class="fa fa-hdd-o"></i><span class="page">Server</span></router-link>
+          </li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/repos"><i class="fa fa-heart"></i><span class="page">Repos</span><small class="label pull-right bg-green">AJAX</small></router-link>
+          </li>
 
           <li class="header">PAGES</li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/login"><i class="fa fa-circle-o text-yellow"></i> <span class="page">Login</span></router-link></li>
-          <li class="pageLink" v-on:click="toggleMenu"><router-link to="/404"><i class="fa fa-circle-o text-red"></i> <span class="page">404</span></router-link></li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/login"><i class="fa fa-circle-o text-yellow"></i> <span class="page">Login</span></router-link>
+          </li>
+          <li class="pageLink" v-on:click="toggleMenu">
+            <router-link to="/404"><i class="fa fa-circle-o text-red"></i> <span class="page">404</span></router-link>
+          </li>
         </ul>
         <!-- /.sidebar-menu -->
       </section>
@@ -196,80 +220,94 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; {{year}} <a href="javascript:;">CoPilot</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; {{year}} <a href="javascript:;">{{ demo.app.copyright }}</a>.</strong> All rights reserved.
     </footer>
   </div>
   <!-- ./wrapper -->
 </template>
 
 <script>
-import faker from 'faker'
-require('hideseek')
+  import faker from 'faker'
+  require('hideseek')
 
-module.exports = {
-  name: 'Dash',
-  data: function () {
-    return {
-      section: 'Dash',
-      me: '',
-      error: '',
-      api: {
-        servers: {
-          url: '', // Back end server
-          result: []
+  module.exports = {
+    name: 'Dash',
+    data: function () {
+      return {
+        section: 'Dash',
+        me: '',
+        error: '',
+        api: {
+          servers: {
+            url: '', // Back end server
+            result: []
+          }
         }
       }
-    }
-  },
-  computed: {
-    store: function () {
-      return this.$parent.$store
     },
-    state: function () {
-      return this.store.state
-    },
-    callAPI: function () {
-      return this.$parent.callAPI
-    },
-    demo: function () {
-      return {
-        displayName: faker.name.findName(),
-        avatar: faker.image.avatar(),
-        email: faker.internet.email(),
-        randomCard: faker.helpers.createCard()
+    computed: {
+      store: function () {
+        return this.$parent.$store
+      },
+      state: function () {
+        return this.store.state
+      },
+      callAPI: function () {
+        return this.$parent.callAPI
+      },
+      logout: function () {
+        return this.$parent.logout
+      },
+      demo: function () {
+        return {
+          app: {
+            name: 'MMC',
+            copyright: 'xcesys.com'
+          },
+          avatar: faker.image.avatar(),
+          email: faker.internet.email(),
+          randomCard: faker.helpers.createCard()
+        }
+      },
+      year: function () {
+        var y = new Date()
+        return y.getFullYear()
       }
     },
-    year: function () {
-      var y = new Date()
-      return y.getFullYear()
-    }
-  },
-  methods: {
-    changeloading: function () {
-      this.store.commit('TOGGLE_SEARCHING')
-    },
-    toggleMenu: function (event) {
-      // remove active from li
-      window.$('li.pageLink').removeClass('active')
+    methods: {
+      changeloading: function () {
+        this.store.commit('TOGGLE_SEARCHING')
+      },
+      toggleMenu: function (event) {
+        // remove active from li
+        window.$('li.pageLink').removeClass('active')
 
-      // Add it to the item that was clicked
-      event.toElement.parentElement.className = 'pageLink active'
+        // Add it to the item that was clicked
+        var el = event.toElement.parentElement
+        if (el.tagName === 'li') el = el.parentElement
+        el.className = 'pageLink active'
+      }
+    },
+    mounted: function () {
+      // Page is ready. Let's load our functions!
     }
-  },
-  mounted: function () {
-    // Page is ready. Let's load our functions!
   }
-}
+
 </script>
 
 <style>
-.user-panel {
-  height: 4em;
-}
-hr.visible-xs-block {
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.17);
-  height: 1px;
-  border-color: transparent;
-}
+  .user-panel {
+    height: 4em;
+  }
+
+
+
+
+  hr.visible-xs-block {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.17);
+    height: 1px;
+    border-color: transparent;
+  }
+
 </style>

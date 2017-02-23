@@ -7,7 +7,12 @@ import routes from './routes'
 import store from './store'
 
 // Import Helpers for filters
-import { domain, count, prettyDate, pluralize } from './filters'
+import {
+  domain,
+  count,
+  prettyDate,
+  pluralize
+} from './filters'
 
 // Import Views - Top level
 
@@ -42,7 +47,10 @@ var router = new VueRouter({
   routes: routes,
   mode: 'history',
   scrollBehavior: function (to, from, savedPosition) {
-    return savedPosition || { x: 0, y: 0 }
+    return savedPosition || {
+      x: 0,
+      y: 0
+    }
   }
 })
 
@@ -53,7 +61,9 @@ router.beforeEach((to, from, next) => {
     window.console.log('Not authenticated')
     next({
       path: '/login',
-      query: { redirect: to.fullPath }
+      query: {
+        redirect: to.fullPath
+      }
     })
   } else {
     next()
