@@ -1,9 +1,3 @@
-// import userlist from './userlist'
-// const m = {
-//   userlist
-// }
-// console.log(m)
-// export default m
 const modulesContext = require.context('../../routes/', true, /modules\/.*\.js$/)
 
 export default modulesContext.keys().reduce((modules, key) => {
