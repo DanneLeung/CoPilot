@@ -26,15 +26,17 @@ module.exports = {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'lib': path.resolve(__dirname, '../lib'),
+      'utils': path.resolve(__dirname, '../src/utils'),
+      'apis': path.resolve(__dirname, '../src/apis')
     }
   },
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    preLoaders: [
-      {
+    preLoaders: [{
         test: /\.vue$/,
         loader: 'eslint',
         include: projectRoot,
@@ -47,8 +49,7 @@ module.exports = {
         exclude: /node_modules/
       }
     ],
-    loaders: [
-      {
+    loaders: [{
         test: /\.vue$/,
         loader: 'vue'
       },

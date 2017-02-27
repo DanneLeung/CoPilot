@@ -2,17 +2,12 @@
 import Vue from 'vue'
 import Resource from 'vue-resource'
 import VueRouter from 'vue-router'
-
+import { sync } from 'vuex-router-sync'
 import routes from './routes'
 import store from './store'
 
 // Import Helpers for filters
-import {
-  domain,
-  count,
-  prettyDate,
-  pluralize
-} from './filters'
+import { domain, count, prettyDate, pluralize } from './filters'
 
 // Import Views - Top level
 import AppView from './App.vue'
@@ -45,13 +40,17 @@ Vue.http.interceptors.push((request, next) => {
 var router = new VueRouter({
   routes: routes,
   mode: 'history',
-  scrollBehavior: function (to, from, savedPosition) {
+  scrollBehavior: function(to, from, savedPosition) {
     return savedPosition || {
       x: 0,
       y: 0
     }
   }
 })
+
+// sync the router with the vuex store.
+// this registers `store.state.route`
+sync(store, router)
 
 // Some middleware to help us ensure the user is authenticated.
 router.beforeEach((to, from, next) => {

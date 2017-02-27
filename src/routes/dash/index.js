@@ -1,10 +1,15 @@
+import DashView from './components/Dash.vue'
+import DashboardView from './components/Dashboard.vue'
+import ReposView from './components/Repos.vue'
 export default {
   path: '/',
-  component: resolve => require(['./components/Dash'], resolve),
+  // component: resolve => require(['./components/Dash'], resolve),
+  component: DashView,
   auth: true,
   children: [{
     path: '',
-    component: resolve => require(['./components/Dashboard'], resolve),
+    // component: resolve => require(['./components/Dashboard'], resolve),
+    component: DashboardView,
     name: 'Dashboard',
     meta: {
       description: 'Overview of environment'
@@ -46,7 +51,8 @@ export default {
     }
   }, {
     path: '/repos',
-    component: resolve => require(['./components/Repos'], resolve),
+    // component: resolve => require(['./components/Repos'], resolve),
+    component: ReposView,
     name: 'Repository',
     meta: {
       description: 'List of popular javascript repos'

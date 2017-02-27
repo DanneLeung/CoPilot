@@ -9,7 +9,7 @@
           Found an error
         </div>
         <div v-else>
-          <div class="col-md-4" v-if="response" v-for="repo in response" >
+          <div class="col-md-4" v-if="response" v-for="repo in response">
             <div class="box box-widget widget-user">
               <div class="widget-user-header bg-aqua-active text-center">
                 <h3 class="widget-user-username center-text">{{repo.name }}</h3>
@@ -46,40 +46,43 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'Repository',
-  data: function () {
-    return {
-      githubUrl: 'https://api.github.com/search/repositories?q=language%3Ajavascript&sort=stars',
-      response: null,
-      error: null
-    }
-  },
-  methods: {
-    callGitHub: function () {
-      var repo = this
+  export default {
+    name: 'Repository',
+    data: function () {
+      return {
+        githubUrl: 'https://api.github.com/search/repositories?q=language%3Ajavascript&sort=stars',
+        response: null,
+        error: null
+      }
+    },
+    methods: {
+      callGitHub: function () {
+        var repo = this
 
-      this.$parent.callAPI('GET', this.githubUrl).then(function (response) {
-        console.log('GitHub Response:', response)
+        this.$parent.callAPI('GET', this.githubUrl).then(function (response) {
+          console.log('GitHub Response:', response)
 
-        if (response.status !== 200) {
+          if (response.status !== 200) {
+            repo.error = response.statusText
+            return
+          }
+
+          repo.response = response.data.items
+        }, function (response) {
+          // Request failed.
+          console.log('error', response)
           repo.error = response.statusText
-          return
-        }
-
-        repo.response = response.data.items
-      }, function (response) {
-        // Request failed.
-        console.log('error', response)
-        repo.error = response.statusText
-      })
+        })
+      }
+    },
+    mounted: function () {
+      this.callGitHub()
     }
-  },
-  mounted: function () {
-    this.callGitHub()
   }
-}
+
 </script>
 
 <style>
+
+
 </style>
