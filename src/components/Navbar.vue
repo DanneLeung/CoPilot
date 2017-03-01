@@ -20,8 +20,7 @@
       <!-- search form (Optional) -->
       <form v-on:submit.prevent class="sidebar-form">
         <div class="input-group">
-          <input type="text" name="search" id="search" class="search form-control" data-toggle="hideseek" placeholder="Search Menus"
-            data-list=".sidebar-menu">
+          <input type="text" name="search" id="search" class="search form-control" data-toggle="hideseek" placeholder="Search Menus" data-list=".sidebar-menu">
           <span class="input-group-btn">
                   <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                   </button>
@@ -66,6 +65,10 @@
         <li class="pageLink" v-on:click="toggleMenu">
           <router-link to="/404"><i class="fa fa-circle-o text-red"></i> <span class="page">404</span></router-link>
         </li>
+        <li class="header">System</li>
+        <li class="pageLink" v-on:click="toggleMenu">
+          <router-link to="/user/list"><i class="fa fa-user text-yellow"></i> <span class="page">Users</span></router-link>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -88,10 +91,10 @@
     name: 'v-navbar',
     props: {},
     computed: {
-      store: function () {
+      store: function() {
         return this.$parent.$store
       },
-      state: function () {
+      state: function() {
         return this.store.state
       }
       // _routes() {
@@ -99,10 +102,10 @@
       // }
     },
     methods: {
-      changeloading: function () {
+      changeloading: function() {
         this.store.commit('TOGGLE_SEARCHING')
       },
-      toggleMenu: function (event) {
+      toggleMenu: function(event) {
         // remove active from li
         window.$('li.pageLink').removeClass('active')
 
@@ -111,7 +114,7 @@
         if (el.tagName === 'li') el = el.parentElement
         el.className = 'pageLink active'
       },
-      logout: function () {
+      logout: function() {
         this.$store.commit('SET_USER', null)
         this.$store.commit('SET_TOKEN', null)
 

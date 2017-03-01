@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <ul>
-      <li v-for='li in userList'>{{li._id}} - {{li.username}}</li>
-    </ul>
-  </div>
+  <vuetable ref="vuetable" api-url="http://vuetable.ratiw.net/api/users" :fields="fields" :css="css"></vuetable>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import Vuetable from 'vuetable-2/src/components/Vuetable'
+  import { mapGetters } from 'vuex'
+
   module.exports = {
     name: 'UserList',
-    computed: {
-      ...mapGetters({ userList: 'userList' })
+    components: {
+      Vuetable
     },
-    methods: mapActions({ list: 'list' }),
-    mounted() {
-      this.list()
+    computed: {
+      ...mapGetters(['css', 'fields'])
     }
+    // methods: mapActions({ list: 'list' })
   }
 
 </script>

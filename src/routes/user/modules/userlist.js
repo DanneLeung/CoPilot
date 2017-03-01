@@ -1,37 +1,54 @@
-import { createAction, handleAction } from 'vuex-actions'
-import * as API from 'apis/user'
+// import { createAction, handleAction } from 'vuex-actions'
+// import * as API from 'apis/user'
 
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
-  users: []
+  css: {
+    tableClass: 'table table-striped table-bordered'
+  },
+  fields: [
+    'name', 'email', 'birthdate',
+    {
+      name: 'address.line1',
+      title: 'Address 1'
+    },
+    {
+      name: 'address.line2',
+      title: 'Address 2'
+    },
+    {
+      name: 'address.zipcode',
+      title: 'Zipcode'
+    }
+  ]
 }
 
 // ------------------------------------
 // Getters
 // ------------------------------------
 const getters = {
-  userList: state => state.users
+  css: state => state.css,
+  fields: state => state.fields
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const actions = {
-  list: createAction(API.USER_LIST, API.list)
+  // list: createAction(API.USER_LIST, API.list)
 }
 
 // ------------------------------------
 // Mutations
 // ------------------------------------
 const mutations = {
-  [API.USER_LIST]: handleAction({
-    success(state, users) {
-      window.console.log(users)
-      state.users = users
-    }
-  })
+  // [API.USER_LIST]: handleAction({
+  //   success(state, users) {
+  //     window.console.log(users)
+  //   }
+  // })
 }
 
 export default {

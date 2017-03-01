@@ -13,6 +13,10 @@ accepts@1.3.3, accepts@~1.3.3:
     mime-types "~2.1.11"
     negotiator "0.6.1"
 
+accounting@^0.4.1:
+  version "0.4.1"
+  resolved "http://registry.npm.taobao.org/accounting/download/accounting-0.4.1.tgz#87dd4103eff7f4460f1e186f5c677ed6cf566883"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/acorn-jsx/download/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
@@ -2637,10 +2641,6 @@ he@1.1.x, he@^1.1.0:
 he@^0.5.0:
   version "0.5.0"
   resolved "http://registry.npm.taobao.org/he/download/he-0.5.0.tgz#2c05ffaef90b68e860f3fd2b54ef580989277ee2"
-
-hideseek@^0.7.0:
-  version "0.7.1"
-  resolved "http://registry.npm.taobao.org/hideseek/download/hideseek-0.7.1.tgz#0b85da72ce96911018bbd9c9d3450a5cd62695e8"
 
 hoek@2.x.x:
   version "2.16.3"
@@ -5679,6 +5679,10 @@ vue-date-picker@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/vue-date-picker/download/vue-date-picker-1.0.2.tgz#d8243dde3d3c37b550cbe4f88c8d4b0803128471"
 
+vue-events@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/vue-events/download/vue-events-3.0.0.tgz#c4c3d262ef334cb963dc7e63b37c520caaaafd6a"
+
 vue-hot-reload-api@^2.0.1:
   version "2.0.11"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
@@ -5701,7 +5705,7 @@ vue-loader@^9.4.0:
     vue-template-compiler "^2.0.5"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-resource@^1.0.0, vue-resource@^1.0.3:
+vue-resource@^1.0.0:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/vue-resource/download/vue-resource-1.2.0.tgz#dc368cca958655c79486dde07336db22954af40c"
   dependencies:

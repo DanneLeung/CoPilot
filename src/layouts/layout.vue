@@ -35,7 +35,6 @@
 <script>
   import VHeader from '../components/Header'
   import VNavbar from '../components/Navbar'
-  require('hideseek')
   export default {
     name: 'Layout',
     components: {
