@@ -8,7 +8,7 @@
       <section class="content-header">
         <h1>
           <!--{{$route.name.toUpperCase() }}-->
-          {{$route.name }}
+          {{$route.meta.title}}
           <small>{{ $route.meta.description }}</small>
         </h1>
         <ol class="breadcrumb">
@@ -17,11 +17,13 @@
           <li class="active">{{$route.name }}</li>
         </ol>
       </section>
-      <transition name="fade" mode="out-in" appear>
-        <keep-alive>
-          <router-view class="router-view"></router-view>
-        </keep-alive>
-      </transition>
+      <section class="content">
+        <transition name="fade" mode="out-in" appear>
+          <keep-alive>
+            <router-view class="router-view"></router-view>
+          </keep-alive>
+        </transition>
+      </section>
       <slot></slot>
     </div>
     <!-- /.content-wrapper -->
@@ -42,35 +44,35 @@
       VNavbar: VNavbar
     },
     computed: {
-      store: function () {
+      store: function() {
         return this.$store
       },
-      state: function () {
+      state: function() {
         return this.store.state
       },
-      callAPI: function () {
+      callAPI: function() {
         return this.$parent.callAPI
       },
-      logout: function () {
+      logout: function() {
         return this.$parent.logout
       },
-      app: function () {
+      app: function() {
         return {
           name: 'MMC',
           copyright: 'xcesys.com'
         }
       },
-      year: function () {
+      year: function() {
         var y = new Date()
         return y.getFullYear()
       }
     },
     methods: {
-      changeloading: function () {
+      changeloading: function() {
         this.store.commit('TOGGLE_SEARCHING')
       }
     },
-    mounted: function () {
+    mounted: function() {
       // Page is ready. Let's load our functions!
     }
   }

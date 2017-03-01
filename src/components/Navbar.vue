@@ -67,7 +67,7 @@
         </li>
         <li class="header">System</li>
         <li class="pageLink" v-on:click="toggleMenu">
-          <router-link to="/user/list"><i class="fa fa-user text-yellow"></i> <span class="page">Users</span></router-link>
+          <router-link to="/user"><i class="fa fa-user text-yellow"></i> <span class="page">Users</span></router-link>
         </li>
       </ul>
       <!-- /.sidebar-menu -->
