@@ -11,7 +11,15 @@
       </div>
     </div>
     <div class="box-body table-responsive">
-      <vuetable ref="vuetable" api-url="http://localhost:4040/api/users" :fields="fields" :css="css" pagination-path="" :per-page="20" :multi-sort="true" multi-sort-key="ctrl" detail-row-id="_id" @vuetable:pagination-data="onPaginationData"></vuetable>
+      <vuetable ref="vuetable" api-url="http://localhost:4040/api/users" :fields="fields" :css="css" pagination-path="" :per-page="20" :multi-sort="true" multi-sort-key="ctrl" detail-row-id="_id" @vuetable:pagination-data="onPaginationData">
+        <template slot="actions" scope="props">
+          <div class="custom-actions">
+            <!--<button class="btn btn-sm btn-default" @click="itemAction('view-item', rowData, rowIndex)"><i class="glyphicon glyphicon-zoom-in"></i></button>-->
+            <button class="btn btn-sm btn-default" @click="itemAction('edit-item', props.rowData, props.rowIndex)"><i class="glyphicon glyphicon-pencil"></i></button>
+            <button class="btn btn-sm btn-default" @click="itemAction('remove-item', props.rowData, props.rowIndex)"><i class="glyphicon glyphicon-remove"></i></button>
+          </div>
+        </template>
+      </vuetable>
       <div>
         <vuetable-pagination-info ref="paginationInfo" info-class="pull-left"></vuetable-pagination-info>
         <vuetable-pagination ref="pagination" :css="cssPagination" :icons="icons" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
@@ -24,11 +32,7 @@
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-  import Vue from 'vue'
-  import CustomActions from './CustomActions'
-  Vue.component('custom-actions', CustomActions)
-
-  // import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   module.exports = {
     name: 'UserList',
@@ -60,16 +64,15 @@
           last: ''
         },
         fields: [
-          { name: 'username', sortField: 'username', title: 'Username' },
-          { name: 'email', sortField: 'email', title: 'Email' },
-          { name: 'address.line1', title: 'Address 1' },
-          { name: 'address.line2', title: 'Address 2' },
-          { name: 'address.zipcode', title: 'Zipcode' },
-          { name: '__component:custom-actions', title: 'Actions', titleClass: 'text-center', dataClass: 'text-center' }
+          { name: 'username', sortField: 'username', title: '用户名' },
+          { name: 'mobile', sortField: 'mobile', title: '手机' },
+          { name: 'email', title: 'Email' },
+          { name: 'enabled', title: '激活' },
+          { name: '__slot:actions', title: '操作', titleClass: 'text-center', dataClass: 'text-center' }
         ],
         sortOrder: [{
-          field: 'email',
-          sortField: 'email',
+          field: 'mobile',
+          sortField: 'mobile',
           direction: 'asc'
         }],
         moreParams: {}
@@ -82,9 +85,44 @@
       },
       onChangePage(page) {
         this.$refs.vuetable.changePage(page)
-      }
+      },
+      itemAction(action, data, index) {
+        if (action === 'edit-item') {
+          this.$router.replace('/user/' + data._id)
+        } else if (action === 'remove-item') {
+          this.remove(data._id)
+        }
+      },
+      loadUser() {
+        if (this.$route.params.id) this.load(this.$route.params.id)
+        else this.create()
+      },
+      ...mapActions(['load', 'create', 'remove'])
+    },
+    computed: {
+      ...mapGetters(['deleted', 'edited'])
+    },
+    watch: {
+      'deleted': function() {
+        if (this.$refs && this.$refs.vuetable) {
+          this.$refs.vuetable.refresh()
+        }
+      },
+      'edited': function() {
+        this.$router.replace('/user')
+        if (this.$refs && this.$refs.vuetable) {
+          this.$refs.vuetable.refresh()
+        }
+      },
+      '$route.params.id': 'loadUser'
+      // 如果路由有变化，会再次执行该方法
+      // '$route': function() {
+        // 不可以使用箭头函数，否则this指针不是vue实例
+        // if (this.$refs && this.$refs.vuetable) {
+        //   this.$refs.vuetable.refresh()
+        // }
+      // }
     }
-    // methods: mapActions({ list: 'list' })
   }
 
 </script>

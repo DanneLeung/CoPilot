@@ -1,5 +1,5 @@
 import request from './request'
-import * as api from '../store/constants/api'
+// import * as api from '../store/constants/api'
 
 export function fetch(url, options) {
   options = Object.assign({
@@ -10,9 +10,9 @@ export function fetch(url, options) {
     }
   }, options)
 
-  url = __MOCK__ ? `apis/${url}` : api[url]
+  // url = __MOCK__ ? `apis/${url}` : api[url]
 
-  if (options.method === 'POST') {
+  if (options.method === 'POST' || options.method === 'PUT') {
     options.body = params(options.body)
   }
 
@@ -49,7 +49,6 @@ export function GET(url, query, option = {}) {
     query: Object.assign({}, DEFAULT_PARAMS, query),
     ...option
   }
-
   return fetch(url, options)
 }
 
@@ -59,6 +58,22 @@ export function POST(url, body, option = {}) {
     body: Object.assign({}, DEFAULT_PARAMS, body),
     ...option
   }
+  return fetch(url, options)
+}
 
+export function PUT(url, body, option = {}) {
+  const options = {
+    method: 'PUT',
+    body: Object.assign({}, DEFAULT_PARAMS, body),
+    ...option
+  }
+  return fetch(url, options)
+}
+
+export function DELETE(url, option = {}) {
+  const options = {
+    method: 'DELETE',
+    ...option
+  }
   return fetch(url, options)
 }

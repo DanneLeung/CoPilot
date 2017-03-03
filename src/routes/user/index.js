@@ -16,6 +16,15 @@ export default {
     path: 'add',
     component: resolve => require(['./components/UserForm'], resolve),
     meta: {
+      title: '创建用户',
+      description: '输入用户数据'
+    }
+  },
+  {
+    name: 'EditUser',
+    path: ':id',
+    component: resolve => require(['./components/UserForm'], resolve),
+    meta: {
       title: '编辑用户',
       description: '输入用户数据'
     }

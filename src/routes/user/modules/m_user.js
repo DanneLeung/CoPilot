@@ -1,43 +1,74 @@
 import { createAction, handleAction } from 'vuex-actions'
 import * as API from 'apis/user'
 
+export const USER_CREATE = 'USER_CREATE'
+export const USER_LOAD = 'USER_LOAD'
+export const USER_REMOVE = 'USER_REMOVE'
+export const USER_LIST = 'USER_LIST'
+export const USER_SAVE = 'USER_SAVE'
 // ------------------------------------
 // States
 // ------------------------------------
 const state = {
-  user: {
-    username: ''
-  }
+  id: '',
+  deleted: '',
+  edited: '',
+  muser: {
+    _id: '',
+    username: '',
+    mobile: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    enabled: true
+  },
+  errmsg: ''
 }
 
 // ------------------------------------
 // Getters
 // ------------------------------------
 const getters = {
-  user: state => state.user
+  id: state => state.id,
+  deleted: state => state.deleted,
+  edited: state => state.edited,
+  muser: state => state.muser,
+  errmsg: state => state.errmsg
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const actions = {
-  list: createAction(API.USER_LIST, API.list),
-  create: createAction(API.USER_CREATE, API.add)
+  load: createAction(USER_LOAD, id => API.load(id)),
+  create: createAction(USER_CREATE),
+  remove: createAction(USER_REMOVE, id => API.remove(id)),
+  save: createAction(USER_SAVE, user => { return user._id ? API.update(user._id, user) : API.create(user) })
 }
 
 // ------------------------------------
 // Mutations
 // ------------------------------------
 const mutations = {
-  [API.USER_LIST]: handleAction({
-    success(state, users) {
-      window.console.log(users)
+  [USER_LOAD]: handleAction({
+    success(state, user) {
+      state.muser = user
     }
   }),
-  [API.USER_CREATE]: handleAction({
+  [USER_CREATE]: handleAction({
     success(state, user) {
-      window.console.log(user)
-      this.$route.push('/user')
+      state.muser = { username: '', mobile: '', email: '', password: '', confirmPassword: '', enabled: true }
+    }
+  }),
+  [USER_REMOVE]: handleAction({
+    success(state, user) {
+      state.deleted = user
+    }
+  }),
+  [USER_SAVE]: handleAction({
+    success(state, user) {
+      state.edited = user
+      state.muser = user
     }
   })
 }
